@@ -9,16 +9,18 @@
 <h1>RasPi Player</h1>
 タイトルをクリックするとRaspberry Piで再生されます:
 
-<ol id="list">
-</ol>
+<ul id="list">
+</ul>
+
+<span id="stop" style="color:blue"><b>停止</b></span>
 
 <script type="text/coffeescript">
 contents = [
-  ["Planet Earth", "/play/home/pi/PlanetEarthA-1.mp4"]
-  ["Rocky Horror", "/play/home/pi/RockyHorrowPictureShow.mp4"]
-  ["Family", "/play/home/pi/Family.mp3"]
-  ["Estate", "/youtube/yPuiDrXp2XA"]
-  ["Poinciana", "/youtube/SiARr9JhLEo"]
+  { title: "Planet Earth", url: "/play/home/pi/PlanetEarthA-1.mp4" }
+  { title: "Rocky Horror", url: "/play/home/pi/RockyHorrowPictureShow.mp4" }
+  { title: "Family",       url: "/play/home/pi/Family.mp3" }
+  { title: "Estate",       url: "/youtube/yPuiDrXp2XA" } 
+  { title: "Poinciana",    url: "/youtube/SiARr9JhLEo" }
 ]
 
 clickfunc = (url) ->
@@ -28,10 +30,14 @@ clickfunc = (url) ->
 
 for content, i in contents
   item = $('<li>')
-  item.text content[0]
-  item.css "color", "#007000"
-  item.on 'click', clickfunc content[1]
+    .text content.title
+    .css "color", "#007000"
+    .on 'click', clickfunc content.url
   $('#list').append item
+
+$('#stop').on 'click', ->
+  $.ajax
+    url: "/stop"
 
 </script>
 </body>
