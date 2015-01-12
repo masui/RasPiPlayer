@@ -17,7 +17,8 @@ reset = (callback) ->
     callback()
 
 app.get '/', (req, res) ->
-  res.send 'Hello World'
+  res.redirect "/player.html"
+  # res.send 'Hello World'
 
 #
 # IDを指定してYouTube再生
@@ -47,5 +48,3 @@ app.get '/stop', (req, res) ->
 
 app.listen 80, ->
   console.log "Express server listening on port 80."
-
-# http://raspi.local/youtube/123456 とかで再生できる
