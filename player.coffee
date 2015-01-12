@@ -1,9 +1,12 @@
+#
+# Raspberry Piでビデオ/音楽を再生するためのExpressサーバ
+#
 express = require 'express'
 exec    = require('child_process').exec
 path    = require 'path'
 
 app = express()
-app.use express.static path.resolve 'public'  # public以下
+app.use express.static path.resolve 'public'  # public以下をスタティックなファイルとして扱う
 
 reset = (callback) ->
   exec "killall omxplayer omxplayer.bin", (error, stdout, stderr)->
@@ -16,6 +19,9 @@ reset = (callback) ->
 app.get '/', (req, res) ->
   res.send 'Hello World'
 
+#
+# IDを指定してYouTube再生
+#
 app.get '/youtube/:id', (req, res) ->
   reset ->
     source = "https://www.youtube.com/watch?v=#{req.params.id}"
@@ -24,18 +30,17 @@ app.get '/youtube/:id', (req, res) ->
       exec "omxplayer '#{source}'", (error, stdout, stderr)->
       # exec "omxplayer --win '0 0 800 500' '#{source}'", (error, stdout, stderr)->
 
-app.get '/run1', (req, res) ->
+#
+# 再生ファイルを絶対パス指定
+#
+app.get /play\/(.*)$/, (req, res) ->
+  path = "/#{req.params[0]}"
   reset ->
-    exec "/usr/bin/omxplayer /home/pi/PlanetEarthA-1.mp4"
+    exec "/usr/bin/omxplayer #{path}"
 
-app.get '/run2', (req, res) ->
-  reset ->
-    exec "/usr/bin/omxplayer /home/pi/RockyHorrowPictureShow.mp4"
-
-app.get '/run3', (req, res) ->
-  reset ->
-    exec "/usr/bin/omxplayer /home/pi/Family.mp3"
-
+#
+# 再生停止
+#
 app.get '/stop', (req, res) ->
   reset ->
     res.send 'STOPPED'
