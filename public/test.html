@@ -9,25 +9,28 @@ alert(100);
 </script>
 </head>
 <body>
-Type "1-5" for movie, etc.
+Click the title of the contents:
+
+<ol id="list">
+</ol>
 
 <script type="text/coffeescript">
-$(document).on 'keydown', (e) ->
-  if e.keyCode == 0x31
-    $.ajax
-      url: "/play/home/pi/PlanetEarthA-1.mp4"
-  if e.keyCode == 0x32
-    $.ajax
-      url: "/play/home/pi/RockyHorrowPictureShow.mp4"
-  if e.keyCode == 0x33
-    $.ajax
-      url: "/play/home/pi/Family.mp3"
-  if e.keyCode == 0x34
-    $.ajax
-      url: "/youtube/yPuiDrXp2XA"
-  if e.keyCode == 0x35
-    $.ajax
-      url: "/youtube/SiARr9JhLEo"
+contents = [
+  ["Planet Earth", "/play/home/pi/PlanetEarthA-1.mp4"]
+  ["Rocky Horror", "/play/home/pi/RockyHorrowPictureShow.mp4"]
+  ["Family", "/play/home/pi/Family.mp3"]
+  ["Estate", "/youtube/yPuiDrXp2XA"]
+  ["Poinciana", "/youtube/SiARr9JhLEo"]
+]
+
+for content, i in contents
+  item = $('<li>')
+  link = $('<a>')
+  link.attr 'href', content[1]
+  link.text content[0]
+  item.append link
+  $('#list').append item
+
 </script>
 </body>
 </html>
