@@ -3,13 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>RasPiPlayer</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="javascripts/coffee-script.js">
-<script type="text/javascript">
-alert(100);
-</script>
+<script src="javascripts/coffee-script.js"></script>
 </head>
 <body>
-Click the title of the contents:
+<h1>RasPi Player</h1>
+タイトルをクリックするとRaspberry Piで再生されます:
 
 <ol id="list">
 </ol>
@@ -23,12 +21,16 @@ contents = [
   ["Poinciana", "/youtube/SiARr9JhLEo"]
 ]
 
+clickfunc = (url) ->
+  ->
+    $.ajax
+      url: url
+
 for content, i in contents
   item = $('<li>')
-  link = $('<a>')
-  link.attr 'href', content[1]
-  link.text content[0]
-  item.append link
+  item.text content[0]
+  item.css "color", "#007000"
+  item.on 'click', clickfunc content[1]
   $('#list').append item
 
 </script>
