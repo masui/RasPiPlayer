@@ -3,42 +3,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>RasPiPlayer</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="javascripts/coffee-script.js">
 <script type="text/javascript">
-$(function() {
-  console.log( "ready!" );
-});
+alert(100);
 </script>
 </head>
 <body>
-Type "1" for movie, etc.
-<script type="text/javascript">
-$(document).on('keydown',function(e){
-  if(e.keyCode == 0x31){
-    $.ajax({
+Type "1-5" for movie, etc.
+
+<script type="text/coffeescript">
+$(document).on 'keydown', (e) ->
+  if e.keyCode == 0x31
+    $.ajax
       url: "/play/home/pi/PlanetEarthA-1.mp4"
-    });
-  }
-  if(e.keyCode == 0x32){
-    $.ajax({
+  if e.keyCode == 0x32
+    $.ajax
       url: "/play/home/pi/RockyHorrowPictureShow.mp4"
-    });
-  }
-  if(e.keyCode == 0x33){
-    $.ajax({
+  if e.keyCode == 0x33
+    $.ajax
       url: "/play/home/pi/Family.mp3"
-    });
-  }
-  if(e.keyCode == 0x34){
-    $.ajax({
+  if e.keyCode == 0x34
+    $.ajax
       url: "/youtube/yPuiDrXp2XA"
-    });
-  }
-  if(e.keyCode == 0x35){
-    $.ajax({
+  if e.keyCode == 0x35
+    $.ajax
       url: "/youtube/SiARr9JhLEo"
-    });
-  }
-});
 </script>
 </body>
 </html>
